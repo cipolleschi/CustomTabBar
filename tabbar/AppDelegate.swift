@@ -20,22 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let vc1 = UIViewController()
     vc1.view.backgroundColor = .systemRed
     vc1.title = "Red"
-//    vc1.view.addSubview(self.toggleTabbarButton)
+    vc1.view.addSubview(self.toggleTabbarButton)
 
     let vc2 = UIViewController()
     vc2.view.backgroundColor = .systemGreen
     vc2.title = "Green"
-//    vc2.view.addSubview(self.toggleTabbarButton)
+    vc2.view.addSubview(self.toggleTabbarButton)
 
     let vc3 = UIViewController()
     vc3.view.backgroundColor = .systemBlue
     vc3.title = "Blue"
-//    vc3.view.addSubview(self.toggleTabbarButton)
+    vc3.view.addSubview(self.toggleTabbarButton)
 
     let vc4 = UIViewController()
     vc4.view.backgroundColor = .systemYellow
     vc4.title = "Yellow"
-//    vc4.view.addSubview(self.toggleTabbarButton)
+    vc4.view.addSubview(self.toggleTabbarButton)
 
     vc.view.backgroundColor = .white
     vc.viewControllers = [vc1, vc2, vc3, vc4]
