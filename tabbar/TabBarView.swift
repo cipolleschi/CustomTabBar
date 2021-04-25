@@ -10,11 +10,14 @@ import UIKit
 struct TabBarVM: Equatable {
   let tabs: [String]
   let selectedTab: Int
+  let orientation: UIDeviceOrientation
   let tabbarHeight: CGFloat
   let isVisible: Bool
 
   func shouldReload(from oldModel: Self?) -> Bool {
-    return self.tabs != oldModel?.tabs || self.selectedTab != oldModel?.selectedTab
+    return self.tabs != oldModel?.tabs ||
+      self.selectedTab != oldModel?.selectedTab ||
+      self.orientation != oldModel?.orientation
   }
 
   func shouldAnimate(from oldModel: Self?) -> Bool {

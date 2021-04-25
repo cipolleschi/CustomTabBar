@@ -9,6 +9,7 @@ import UIKit
 
 open class TabBar: UIViewController {
 
+  // MARK: Properties
   var rootView: TabBarView {
     return self.view as! TabBarView
   }
@@ -51,6 +52,12 @@ open class TabBar: UIViewController {
     }
   }
 
+  // MARK: Lifecycle
+
+  deinit {
+    self.removeObservers()
+  }
+
   open override func loadView() {
     self.view = TabBarView()
     self.updateVM()
@@ -61,8 +68,10 @@ open class TabBar: UIViewController {
 
     self.updateVM()
     self.setupInteractions()
+    self.setupObservers()
   }
-
+  
+  // MARK: Behavior
   func setupInteractions() {
     self.rootView.userDidSelectTab = { [weak self] tab in
       self?.selectedTab = tab
@@ -73,6 +82,7 @@ open class TabBar: UIViewController {
     self.rootView.viewModel = .init(
       tabs: self.viewControllers.compactMap(\.title),
       selectedTab: self.selectedTab ?? 0,
+      orientation: UIDevice.current.orientation,
       tabbarHeight: self.tabbarHeight,
       isVisible: self.tabbarVisible
     )
@@ -82,6 +92,23 @@ open class TabBar: UIViewController {
     self.tabbarVisible = !self.tabbarVisible
   }
 
+  @objc func handleOrientationChange(_ notification: Notification) {
+    self.updateVM()
+  }
+
+  // MARK: Observers
+  func setupObservers() {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.handleOrientationChange(_:)),
+      name: UIDevice.orientationDidChangeNotification,
+      object: nil
+    )
+  }
+
+  func removeObservers() {
+    NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+  }
 }
 
 // MARK: - View Containment API
